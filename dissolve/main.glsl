@@ -33,9 +33,12 @@ float simplexNoise(vec2 v){
 //---------------------------------------------------------------------------
 vec4 dissolve(in vec2 pix, in vec4 col, in float timeToDissolveInS)
 {
+    //float timeCol = sin(ConstData.elapsedTime);
+    //return vec4(timeCol, timeCol, timeCol, 1.0);
+
     float time = 5 - ConstData.elapsedTime;
+    time = sin(ConstData.elapsedTime);
     time = time < 0 ? 0 : time;
-    //const float time = ConstData.elapsedTime;
 
     float speed = 1.5;
     float factor = 1 - (time * speed);
@@ -43,7 +46,7 @@ vec4 dissolve(in vec2 pix, in vec4 col, in float timeToDissolveInS)
 
     //vec4 color = vec4(0.2, 0.6, 0.4, 1);
     vec4 color = col;
-    vec4 dissolveColor = vec4(0.3, 0.3, 1, 1);
+    vec4 dissolveColor = vec4(1, 0, 0, 1);
 
     float noise = simplexNoise(pix / noiseScale);
 
@@ -55,7 +58,8 @@ vec4 dissolve(in vec2 pix, in vec4 col, in float timeToDissolveInS)
     color.a *= sn1;
     
     //return vec4(1.0, 0, 0, 1.0);
+    //return dissolveColor;
     return dissolveColor + color;
 
-	//return vec4(col.xyz, 1.0);
+	return vec4(col.xyz, 1.0);
 }
